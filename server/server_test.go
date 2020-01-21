@@ -1,8 +1,8 @@
-package menupad_test
+package server_test
 
 import (
 	"testing"
-	"github.com/misostack/menupad"
+	"github.com/misostack/menupad/server"
 	"fmt"
 )
 
@@ -18,7 +18,7 @@ func TestCalculate(t *testing.T) {
 	x = 5
 	y = 10
 
-	got := menupad.Calculate(uint(x), uint(y))
+	got := server.Calculate(uint(x), uint(y))
 	expected := uint(x + y)
 	if got != expected {
 		t.Fatalf("Expected %v, got %v", got, expected)
@@ -28,7 +28,7 @@ func TestCalculate(t *testing.T) {
 func TestSubtract(t *testing.T) {
 	x,y := 5, 10
 
-	got := menupad.Subtract(x, y)
+	got := server.Subtract(x, y)
 	expected := x - y
 	if got != expected {
 		t.Fatalf("Expected %v, got %v", expected, got)
@@ -42,7 +42,7 @@ func TestTimeSlotID(t *testing.T){
 		{2, 40, 16},
 	}
 	for _, tc := range testcases {
-		got := menupad.TimeSlotID(tc.hours, tc.minutes)
+		got := server.TimeSlotID(tc.hours, tc.minutes)
 		fmt.Printf("TimeSlotID(%v, %v) = %v\n", tc.hours, tc.minutes, got)
 		if got != tc.expected {
 			t.Errorf("TimeSlotID(%v, %v) = %v; expected : %v", tc.hours, tc.minutes, got, tc.expected)
@@ -54,18 +54,18 @@ func TestTimeSlotID(t *testing.T){
 
 func BenchmarkStringFromAssignment(b *testing.B) {	
 	for n:=0; n <= b.N; n++ {
-		menupad.StringFromAssignment(100, 'a')
+		server.StringFromAssignment(100, 'a')
 	}
 }
 
 func BenchmarkStringFromAppendJoin(b *testing.B) {
 	for n:=0; n <= b.N; n++ {
-		menupad.StringFromAppendJoin(100, 'a')
+		server.StringFromAppendJoin(100, 'a')
 	}	
 }
 
 func BenchmarkStringFromStringBuffer(b *testing.B) {
 	for n:=0; n <= b.N; n++ {
-		menupad.StringFromBuffer(100, 'a')
+		server.StringFromBuffer(100, 'a')
 	}	
 }
