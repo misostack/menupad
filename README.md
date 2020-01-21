@@ -17,11 +17,17 @@
 
 ### Milestone 1
 
+- Create a basic web application
 - Reading or writing headers
 - Examining the type of a request
 - Fetching data from a database
 - Parsing request data
 - Authentication
+
+### Basic Web Application
+
+![basic web application][img_basic_web_application]
+
 
 ## Testing
 
@@ -91,3 +97,5 @@ BenchmarkStringFromStringBuffer-8        1000000              1637 ns/op
 ## References
 
 - https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
+
+[img_basic_web_application]: assets/images/basic-web-application.png
