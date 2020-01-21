@@ -1,4 +1,4 @@
-package main
+package menupad
 
 import (
 	"fmt"
@@ -7,7 +7,8 @@ import (
 	"log"
 )
 
-func main() {
+// Init : init the webserver
+func Init() {
 	fmt.Println("MenuPad REST API serve at http://localhost:8000")
 	http.HandleFunc("/", homeController)
 	http.ListenAndServe(":8000", nil)
@@ -30,4 +31,20 @@ func homeController(w http.ResponseWriter, r *http.Request) {
 	// else
 	w.WriteHeader(http.StatusOK)
 	w.Write(listJSON)
+}
+
+// Calculate : sum of x and y
+func Calculate(x uint, y uint) uint {
+	return x + y
+}
+
+// Subtract : subtract y from x
+func Subtract(x int, y int) int {
+	return x - y
+}
+
+// TimeSlotID : from hours, minutes to TimeSlotID
+func TimeSlotID(h uint8, m uint8) uint8{
+	// h * 6 + minutes / 10
+	return h * 6 + m/10
 }
