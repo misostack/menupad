@@ -49,3 +49,23 @@ func TestTimeSlotID(t *testing.T){
 		}
 	}
 }
+
+// Testing BenchMark
+
+func BenchmarkStringFromAssignment(b *testing.B) {	
+	for n:=0; n <= b.N; n++ {
+		menupad.StringFromAssignment(100, 'a')
+	}
+}
+
+func BenchmarkStringFromAppendJoin(b *testing.B) {
+	for n:=0; n <= b.N; n++ {
+		menupad.StringFromAppendJoin(100, 'a')
+	}	
+}
+
+func BenchmarkStringFromStringBuffer(b *testing.B) {
+	for n:=0; n <= b.N; n++ {
+		menupad.StringFromBuffer(100, 'a')
+	}	
+}

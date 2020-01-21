@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"log"
+	"bytes"
+	"strings"
 )
 
 // Init : init the webserver
@@ -47,4 +49,34 @@ func Subtract(x int, y int) int {
 func TimeSlotID(h uint8, m uint8) uint8{
 	// h * 6 + minutes / 10
 	return h * 6 + m/10
+}
+
+// StringFromAssignment : Create a string with expected length from a character
+func StringFromAssignment(j int, char rune) string {
+	// by default string has empty value
+	var s string
+	for i:=0; i < j; i++{
+		s += string(char)
+	}
+	return s
+}
+
+// StringFromAppendJoin : Create a string with expected length from a character
+func StringFromAppendJoin(j int, char rune) string {
+	// by default string has empty value
+	s := []string{}
+	for i:=0; i < j; i++{
+		s = append(s, string(char))
+	}
+	return strings.Join(s, "")
+}
+
+// StringFromBuffer : Create a string with expected length from a character
+func StringFromBuffer(j int, char rune) string {
+	// by default string has empty value
+	var buffer bytes.Buffer
+	for i:=0; i < j; i++{
+		buffer.WriteString(string(char))
+	}
+	return buffer.String()
 }

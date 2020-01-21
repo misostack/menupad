@@ -53,6 +53,25 @@ outputs.
 - Running outside-in tests against an API to check response codes and
 headers.
 
+### Testing & Benchmark
+
+```bash
+go test -run=XXX # run the specific test
+go test -bench=.
+```
+
+> Each benchmark is run for a minimum of 1 second by default. If the second has not elapsed when the Benchmark function returns, the value of b.N is increased in the sequence 1, 2, 5, 10, 20, 50, … and the function run again.
+
+
+**Example
+
+```bash
+BenchmarkStringFromAssignment-8           200000              7393 ns/op
+BenchmarkStringFromAppendJoin-8           300000              5579 ns/op
+BenchmarkStringFromStringBuffer-8        1000000              1637 ns/op
+
+==> BenchmarkStringFromStringBuffer for string concenate is the fastest!
+```
 
 ## Common Errors
 
@@ -64,3 +83,6 @@ headers.
 > 
 > w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
+## References
+
+- https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
