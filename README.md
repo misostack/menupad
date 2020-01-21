@@ -53,11 +53,12 @@ outputs.
 - Running outside-in tests against an API to check response codes and
 headers.
 
-### Testing & Benchmark
+### Testing & Benchmark, Test Coverage
 
 ```bash
 go test -run=XXX # run the specific test
 go test -bench=.
+go test -cover
 ```
 
 > Each benchmark is run for a minimum of 1 second by default. If the second has not elapsed when the Benchmark function returns, the value of b.N is increased in the sequence 1, 2, 5, 10, 20, 50, … and the function run again.
@@ -72,6 +73,10 @@ BenchmarkStringFromStringBuffer-8        1000000              1637 ns/op
 
 ==> BenchmarkStringFromStringBuffer for string concenate is the fastest!
 ```
+
+** Another example
+
+- https://golang.org/src/strings/strings_test.go
 
 ## Common Errors
 
