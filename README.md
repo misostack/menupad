@@ -24,7 +24,24 @@
 - Parsing request data
 - Authentication
 
-### Basic Web Application
+#### Routing
+
+```bash
+got get github.com/julienschmidt/httprouter
+```
+
+- https://github.com/julienschmidt/httprouter
+
+#### Menu resources
+
+- users
+- sessions
+- menus
+- menu_items
+- invites
+- invite_items
+
+#### Basic Web Application
 
 ![basic web application][img_basic_web_application]
 

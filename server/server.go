@@ -9,6 +9,8 @@ import (
 	"log"
 	"bytes"
 	"strings"
+	
+	"github.com/julienschmidt/httprouter"
 )
 
 // HelloHandler : default handler
@@ -40,16 +42,34 @@ func protectURL(h http.HandlerFunc) http.HandlerFunc {
 // Init : init the webserver
 func Init() {
 	fmt.Println("MenuPad REST API serve at http://localhost:8000")
-	hello := HelloHandler{}
-	world := WorldHandler{}
-	server := http.Server{
-	Addr: "127.0.0.1:8000",
-	}
-	http.Handle("/hello", &hello)
-	http.Handle("/world", &world)
+	// multiplexer
+	router := httprouter.New()
+	staticPath := "public"
+	router.GET("/", Index)
+	// router.GET("/api/", s.api())
+
+	// if not found look for a static file
+	static := httprouter.New()
+	static.ServeFiles("/*filepath", http.Dir(staticPath))
+	router.NotFound = static
+	log.Fatal(http.ListenAndServe(":8000", router))
 	
-	http.HandleFunc("/", protectURL(serverLog(homeController)))
-	server.ListenAndServe()
+	
+	// hello := HelloHandler{}
+	// world := WorldHandler{}
+	// server := http.Server{
+	// Addr: "127.0.0.1:8000",
+	// }
+	// http.Handle("/hello", &hello)
+	// http.Handle("/world", &world)
+	
+	// http.HandleFunc("/", protectURL(serverLog(homeController)))
+	// server.ListenAndServe()
+}
+
+// Index : Home Handler
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Fprint(w, "Welcome!\n")
 }
 
 func homeController(w http.ResponseWriter, r *http.Request) {
