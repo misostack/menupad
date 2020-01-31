@@ -1,118 +1,35 @@
-# Requirements
+# General
 
-- Create an http server
-- Create REST API
-- Storing data with MongoDB
-- Writing test cases
-- Build and deploy to server
-- Create API Doc with Swagger UI
+1. Project Overview
+2. Stack
+3. Development
+4. Deployment
 
-## Tools
+## Project overview
 
-- Source code management : github.com
-- Code editor: visual code
-- Local Enviroment: ubuntu
-
-## Milestones
-
-### Milestone 1
-
-- Create a basic web application
-- Reading or writing headers
-- Examining the type of a request
-- Fetching data from a database
-- Parsing request data
-- Authentication
-
-#### Routing
-
-```bash
-got get github.com/julienschmidt/httprouter
-```
-
-- https://github.com/julienschmidt/httprouter
-
-#### Menu resources
-
-- users
-- sessions
-- menus
-- menu_items
-- invites
-- invite_items
-
-#### Basic Web Application
-
-![basic web application][img_basic_web_application]
+The main idea is creating a RESTful Web Service, also includes a small blog to introduce about the project.
 
 
-## Testing
+## Stack
 
-### Unit Tests
+This system includes 3 parts:
 
-> "If I give the function X these values, I should expect this value to be returned"
+- Backend API : written by GOlang
+- WebApp : written by javascript ( ReactJS )
+- A blog: written by Golang
 
-```go
-func sum(x int, b int) int {
-  return x + y
-}
-```
+## Development
 
-### Integration Tests
+### Roadmap
 
-> "Integration tests typically test how the various parts of an application work
-together"
+1. Sprint 1 : Backend API
+2. Sprint 2 : WebApp
+3. Sprint 3 : Presentation blog
+4. Sprint 4 : Deploy on free cloud services
+5. Sprint 5 : CI & CD
+6. Sprint 6-n : Maintenance
 
-### Functional Tests
+## Deployment
 
-> Functional tests are often known as end-to-end tests and outside-in tests
->
-> For users of software, functional tests are perhaps
-the most important tests that can be run. Examples of functional tests include:
+...
 
-- Testing that a command line tool responds to certain inputs with certain
-outputs.
-- Running automated tests on a web page.
-- Running outside-in tests against an API to check response codes and
-headers.
-
-### Testing & Benchmark, Test Coverage
-
-```bash
-go test -run=XXX # run the specific test
-go test -bench=.
-go test -cover
-```
-
-> Each benchmark is run for a minimum of 1 second by default. If the second has not elapsed when the Benchmark function returns, the value of b.N is increased in the sequence 1, 2, 5, 10, 20, 50, … and the function run again.
-
-
-**Example
-
-```bash
-BenchmarkStringFromAssignment-8           200000              7393 ns/op
-BenchmarkStringFromAppendJoin-8           300000              5579 ns/op
-BenchmarkStringFromStringBuffer-8        1000000              1637 ns/op
-
-==> BenchmarkStringFromStringBuffer for string concenate is the fastest!
-```
-
-** Another example
-
-- https://golang.org/src/strings/strings_test.go
-
-## Common Errors
-
-1. Set Header does not working
-
-- https://github.com/golang/go/issues/17083
-
-> // header should be set first at all
-> 
-> w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-## References
-
-- https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
-
-[img_basic_web_application]: assets/images/basic-web-application.png
