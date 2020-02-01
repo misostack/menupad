@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"strconv"
 	"log"
+	"github.com/julienschmidt/httprouter"
 )
 
 const API_VERSION = 0.1
@@ -14,12 +15,7 @@ type Config struct {
 	Port uint16
 }
 
-type HelloHandler struct {
-	Title string
-}
-
-func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// w.Write([]byte(h.output))
+func GenerateHTML(w *http.ResponseWriter, title string) {
 	check := func(err error) {
 		if err != nil {
 			log.Fatal(err)
@@ -30,25 +26,53 @@ func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Title string
 	}{
-		Title: h.Title,
+		Title: title,
 	}
-	err = t.Execute(w, data)
+	err = t.Execute(*w, data)	
 }
+
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	GenerateHTML(&w, "Index")
+}
+
+// type HelloHandler struct {
+// 	Title string
+// }
+
+// func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+// 	// w.Write([]byte(h.output))
+// 	check := func(err error) {
+// 		if err != nil {
+// 			log.Fatal(err)
+// 		}
+// 	}
+// 	t, err := template.New("webpage").Parse(MainLayout())
+// 	check(err)
+// 	data := struct {
+// 		Title string
+// 	}{
+// 		Title: h.Title,
+// 	}
+// 	err = t.Execute(w, data)
+// }
 
 // Init : init the webserver
 func Init(cfg Config) {	
 	addr := "127.0.0.1:" + strconv.Itoa(int(cfg.Port))
-	multiplexer := http.Server{
-		Addr: addr,
-		Handler: nil,
-	}
-	hello := HelloHandler{ Title: "hello" }
-	world := HelloHandler{ Title: "world" }
+	router := httprouter.New()
+	router.GET("/", Index)
+
+	// index := HelloHandler{ Title: "Index" }
+	// hello := HelloHandler{ Title: "hello" }
+	// world := HelloHandler{ Title: "world" }
 	// Attach handles to DefaultServerMux
-	http.Handle("/hello", &hello)
-	http.Handle("/world", &world)
+	
+	// http.Handle("/", &index)
+	// http.Handle("/hello", &hello)
+	// http.Handle("/world", &world)
+	
 	fmt.Printf("Menupad API version %v is running at %v\n", API_VERSION, addr)
-	log.Fatal(multiplexer.ListenAndServe())
+	log.Fatal(http.ListenAndServe(addr, router))
 }
 
 func MainLayout() string{
