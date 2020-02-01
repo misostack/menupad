@@ -72,7 +72,11 @@ func Init(cfg Config) {
 	// http.Handle("/world", &world)
 	
 	fmt.Printf("Menupad API version %v is running at %v\n", API_VERSION, addr)
-	log.Fatal(http.ListenAndServe(addr, router))
+	server := http.Server{
+		Addr: addr,
+		Handler: router,
+	}
+	log.Fatal(server.ListenAndServe())
 }
 
 func MainLayout() string{
